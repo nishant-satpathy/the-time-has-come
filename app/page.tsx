@@ -18,7 +18,6 @@ type CountdownParts = {
   hours: number;
   minutes: number;
   seconds: number;
-  milliseconds: number;
   totalMs: number;
   isComplete: boolean;
 };
@@ -52,13 +51,11 @@ function useCountdown(targetDate: Date): CountdownParts {
     const minutes = Math.floor(hourRemainder / (60 * 1000));
     const minRemainder = hourRemainder % (60 * 1000);
     const seconds = Math.floor(minRemainder / 1000);
-    const milliseconds = Math.floor(minRemainder % 1000);
     return {
       days,
       hours,
       minutes,
       seconds,
-      milliseconds,
       totalMs: clamped,
       isComplete: delta <= 0,
     };
@@ -80,7 +77,7 @@ export default function Page() {
 
   const target = useMemo(() => new Date(TARGET_ISO), []);
   const title = params.title?.trim() || TITLE;
-  const { days, hours, minutes, seconds, milliseconds, isComplete, totalMs } = useCountdown(target);
+  const { days, hours, minutes, seconds, isComplete, totalMs } = useCountdown(target);
   const confettiRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -125,12 +122,11 @@ export default function Page() {
       </header>
 
       <section className={`my-auto w-full max-w-5xl ${mounted && isComplete ? 'hidden' : ''}`}>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 w-fit mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-fit mx-auto">
           <StatCard label="Days" value={mounted ? days : 0} accent="from-pink-500 to-rose-500" />
           <StatCard label="Hours" value={mounted ? hours : 0} accent="from-fuchsia-500 to-purple-500" />
           <StatCard label="Minutes" value={mounted ? minutes : 0} accent="from-emerald-500 to-teal-500" />
           <StatCard label="Seconds" value={mounted ? seconds : 0} accent="from-sky-500 to-indigo-500" />
-          <StatCard label="Milliseconds" value={mounted ? milliseconds : 0} accent="from-amber-500 to-orange-500" />
         </div>
       </section>
 
