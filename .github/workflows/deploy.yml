@@ -24,7 +24,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - run: DEPLOY_TARGET=github npm run export
+      - run: DEPLOY_TARGET=github npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
