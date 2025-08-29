@@ -6,7 +6,7 @@ import bgUrl from '@/assets/000008570022.jpg';
 import { z } from 'zod';
 
 const TITLE = 'Bharath + Vaish 💍';
-const TARGET_ISO = '2025-08-30T00:00:00';
+const TARGET_ISO = '2025-08-30T23:45:00';
 
 const schema = z.object({
   title: z.string().min(1).max(60).optional(),
